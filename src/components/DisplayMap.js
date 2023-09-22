@@ -15,7 +15,54 @@ const DisplayMap = () => {
     useEffect(() => {
       
         if (mapDiv.current) {
-            
+            const popupFields = {
+                title: "Offence Category: {MCI_CATEGORY}",
+                content: [
+                    {
+                        type: "fields",
+                        fieldInfos: [
+                            {
+                                fieldName: "REPORT_DATE",
+                                label: "Report Date"
+                            },
+                            {
+                                fieldName: "OCC_DATE",
+                                label: "Occured Date"
+                            },
+                            {
+                                fieldName: "OFFENCE",
+                                label: "OFFENCE"
+                            },
+                            {
+                                fieldName: "LOCATION_TYPE",
+                                label: "LOCATION_TYPE"
+                            },
+                            {
+                                fieldName: "PREMISES_TYPE",
+                                label: "PREMISES_TYPE"
+                            },
+                            {
+                                fieldName: "DIVISION",
+                                label: "DIVISION"
+                            },
+                            {
+                                fieldName: "NEIGHBOURHOOD_140",
+                                label: "NEIGHBOURHOOD_140"
+                            },
+                            {
+                                fieldName: "HOOD_140",
+                                label: "HOOD_140 "
+                            },
+                            {
+                                fieldName: "NEIGHBOURHOOD_158",
+                                label: "NEIGHBOURHOOD_158"
+                            },
+                        ]
+                    }
+                ]
+            };
+
+           
             const map = new Map({
                 basemap: "dark-gray-vector"
             });
@@ -28,9 +75,10 @@ const DisplayMap = () => {
             });
 
             const featureLayer = new FeatureLayer({
-                url: "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/Major_Crime_Indicators_Open_Data/FeatureServer/0"
+                url: "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/Major_Crime_Indicators_Open_Data/FeatureServer/0",
+                popupTemplate: popupFields
             });
-
+            
             map.add(featureLayer);
 
             const legend = new Legend({
