@@ -104,8 +104,6 @@ const GridItem = styled(Paper)(({ theme }) => ({
     justifyContent: 'center'
 }));
 
-export default GridItem
-
 const featureLayerUrlMajorCrimeIndicators = "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/Major_Crime_Indicators_Open_Data/FeatureServer/0";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
