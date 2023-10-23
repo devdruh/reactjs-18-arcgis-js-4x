@@ -1,30 +1,28 @@
-import * as React from 'react' 
-import { Container, Typography, Box, IconButton, Toolbar, AppBar, MenuItem, Menu, Tooltip, Link } from '@mui/material'
+import { useContext, useState } from "react";
+import { useLocation } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import { Container, Typography, Box, IconButton, Toolbar, AppBar, MenuItem, Menu, Link } from '@mui/material'
+import { ColorModeContext, navPages } from '../utils/variables';
 import MenuIcon from '@mui/icons-material/Menu'
 import LogoDevIcon from '@mui/icons-material/LogoDev';
-// import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import { useLocation } from 'react-router-dom';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-const pages = [
-    {
-        name: "Home",
-        url: '/'
-    },
-    {
-        name: "Data & Maps",
-        url: "data-maps"
-    },
-    {
-        name: "About",
-        url: "about"
-    }
-]
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const DarkLightMode = () => {
+
+    const theme = useTheme();
+    const colorMode = useContext(ColorModeContext);
+
+    return (
+        <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+        </IconButton>
+    );
+}
 
 const Navbar = () => {
     
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [anchorElNav, setAnchorElNav] = useState(null);
 
     let pathLoc = useLocation();
     let subPathLoc = pathLoc.pathname.substring(pathLoc.pathname === '/' ? 0 : 1);
@@ -32,17 +30,11 @@ const Navbar = () => {
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
     return (
         <>
             <AppBar position="static" color="primary">
@@ -94,7 +86,7 @@ const Navbar = () => {
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                            {pages.map((page) => (
+                            {navPages.map((page) => (
                                 <MenuItem key={page.name} onClick={handleCloseNavMenu} selected={subPathLoc === page.url}>
                                     <Link
                                         key={page.name}
@@ -128,7 +120,7 @@ const Navbar = () => {
                             LOGO
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
+                            {navPages.map((page) => (
                                 <Link
                                     key={page.name}
                                     href={page.url}
@@ -141,40 +133,13 @@ const Navbar = () => {
                         </Box>
  
                         <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    {/* <EmojiEmotionsIcon/> */}
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{ mt: '45px' }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                                >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
+                            <DarkLightMode />
                         </Box>
                     </Toolbar>
                 </Container>
             </AppBar>
         </>
-        
-  )
+    )
 }
 
 export default Navbar
