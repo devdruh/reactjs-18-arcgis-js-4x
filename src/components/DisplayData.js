@@ -36,7 +36,7 @@ const DisplayData = ({filterOption, isLoading, countCrimeByCat, handleChangeFilt
                     </Grid>
                 </Grid>
                 <Grid item md={3} xs={12}>
-                    <DataFilter filterOption={filterOption} handleChangeFilter={handleChangeFilter} />
+                    <DataFilter filterOption={filterOption} handleChangeFilter={handleChangeFilter} isDisabled={isLoading}/>
                 </Grid>
             </Grid>
         </Grid>

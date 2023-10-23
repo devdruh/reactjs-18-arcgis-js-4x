@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Grid, Box, Typography, Select, FormControl, MenuItem, InputLabel } from '@mui/material';
 import { getLast5Years, getMonthsName, GridItem } from '../utils/variables';
 
-const DataFilter = ({ filterOption, handleChangeFilter }) => {
+const DataFilter = ({ filterOption, handleChangeFilter, isDisabled }) => {
     const [today,] = useState(new Date());
     const last5Years = useMemo(() => getLast5Years(today), [today]);
     const monthNames = useMemo(() => getMonthsName(), []);
@@ -22,6 +22,7 @@ const DataFilter = ({ filterOption, handleChangeFilter }) => {
                                     label="Year"
                                     name="year"
                                     onChange={handleChangeFilter}
+                                    disabled={isDisabled}
                                 >
                                     {last5Years.map((item) => {
                                         return <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -38,6 +39,7 @@ const DataFilter = ({ filterOption, handleChangeFilter }) => {
                                     label="Month"
                                     name="month"
                                     onChange={handleChangeFilter}
+                                    disabled={isDisabled}
                                 >
                                     <MenuItem value="">
                                         <em>None</em>

@@ -45,7 +45,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Layout/>}>
                 <Route index element={<Home />} />
-                <Route path='data-map' element={<DataAndMap />} />
+                <Route path='data-and-map' element={<DataAndMap />} />
                 <Route path='about' element={<About/>} />
               </Route>
             </Routes>

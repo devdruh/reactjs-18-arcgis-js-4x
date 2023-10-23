@@ -87,7 +87,7 @@ const navPages = [
     },
     {
         name: "Data & Map",
-        url: "data-map"
+        url: "data-and-map"
     },
     {
         name: "About",
