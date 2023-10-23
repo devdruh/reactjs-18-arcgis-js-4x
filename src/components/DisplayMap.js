@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Container, Grid, Box } from "@mui/material";
 import { featureLayerUrl, popupFields } from '../utils/variables';
+import { useTheme } from '@mui/material/styles';
 import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map.js";
 import Legend from "@arcgis/core/widgets/Legend.js";
@@ -9,6 +10,7 @@ import FeatureLayer from "@arcgis/core/layers/FeatureLayer.js";
 
 const DisplayMap = ({ filterOption }) => {
 
+    const theme = useTheme();
     const mapDiv = useRef(null);
 
     useEffect(() => {
@@ -16,7 +18,7 @@ const DisplayMap = ({ filterOption }) => {
         if (mapDiv.current) {
 
             const map = new Map({
-                basemap: "dark-gray-vector"
+                basemap: theme.palette.mode === 'dark' ? "dark-gray-vector" : "gray-vector"
             });
 
             const view = new MapView({
@@ -50,7 +52,7 @@ const DisplayMap = ({ filterOption }) => {
             view.ui.add(expandLegend, "bottom-right");
         }
 
-    }, [mapDiv]);
+    }, [mapDiv, theme.palette.mode]);
 
     return (
         <>
