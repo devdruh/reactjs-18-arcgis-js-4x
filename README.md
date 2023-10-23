@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## App using React 18 and Material UI v5.x
+### Getting Started
 
 **To Run** 
 
@@ -17,6 +17,9 @@ npm start
 > Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 > You may also see the live project here: [React ArcGIS Project](http://reactjs-18-arcgis-js-4x.vercel.app)
+
+The app is built using React 18, ArcGIS Maps SDK for JS and Material UI v5.x
+
 
 **Note: this is a personal project only.**
 
