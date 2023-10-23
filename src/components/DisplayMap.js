@@ -7,14 +7,14 @@ import Legend from "@arcgis/core/widgets/Legend.js";
 import Expand from "@arcgis/core/widgets/Expand.js";
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer.js";
 
-const DisplayMap = () => {
+const DisplayMap = ({ filterOption }) => {
 
     const mapDiv = useRef(null);
 
     useEffect(() => {
       
         if (mapDiv.current) {
-           
+
             const map = new Map({
                 basemap: "dark-gray-vector"
             });
@@ -23,7 +23,7 @@ const DisplayMap = () => {
                 container: mapDiv.current,
                 map: map,
                 center: [-79.34600830076083, 43.755225053060066],
-                zoom: 9
+                zoom: 10
             });
 
             const featureLayerCrimes = new FeatureLayer({
@@ -33,8 +33,8 @@ const DisplayMap = () => {
 
             const featureLayerDivision = new FeatureLayer({
                 url: featureLayerUrl.tpsPoliceDivision
-            })
-            
+            });
+
             map.addMany([featureLayerCrimes, featureLayerDivision]);
 
             const legend = new Legend({
@@ -50,7 +50,7 @@ const DisplayMap = () => {
             view.ui.add(expandLegend, "bottom-right");
         }
 
-    }, []);
+    }, [mapDiv]);
 
     return (
         <>

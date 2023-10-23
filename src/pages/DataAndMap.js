@@ -25,24 +25,13 @@ const DataAndMap = () => {
         });
     }
 
-    const filterFeatures = useCallback((items) => {
+    const filterFeatures = useCallback((features) => {
 
-        for (let index = 0; index < items.length; index++) {
-            queryFeaturesArray.push(items[index])
-        }
-
-        const newFeatureSet = new Set();
-        const uniqueFeatureId = queryFeaturesArray.filter(item => {
-            const isDuplicate = newFeatureSet.has(item.attributes.OBJECTID);
-            newFeatureSet.add(item.attributes.OBJECTID);
-            return !isDuplicate;
-        });
-
-        const countAssault = uniqueFeatureId.filter((item) => item.attributes.MCI_CATEGORY === 'Assault').length;
-        const countAutoTheft = uniqueFeatureId.filter((item) => item.attributes.MCI_CATEGORY === 'Auto Theft').length;
-        const countBreakAndEnter = uniqueFeatureId.filter((item) => item.attributes.MCI_CATEGORY === 'Break and Enter').length;
-        const countRobbery = uniqueFeatureId.filter((item) => item.attributes.MCI_CATEGORY === 'Robbery').length;
-        const countTheftOver = uniqueFeatureId.filter((item) => item.attributes.MCI_CATEGORY === 'Theft Over').length;
+        const countAssault = features.filter((item) => item.attributes.MCI_CATEGORY === 'Assault').length;
+        const countAutoTheft = features.filter((item) => item.attributes.MCI_CATEGORY === 'Auto Theft').length;
+        const countBreakAndEnter = features.filter((item) => item.attributes.MCI_CATEGORY === 'Break and Enter').length;
+        const countRobbery = features.filter((item) => item.attributes.MCI_CATEGORY === 'Robbery').length;
+        const countTheftOver = features.filter((item) => item.attributes.MCI_CATEGORY === 'Theft Over').length;
 
         setCountCrimeByCat((item) => ({
             ...item,
@@ -56,7 +45,7 @@ const DataAndMap = () => {
 
         setIsLoading(false);
 
-    },[queryFeaturesArray])
+    }, []);
     
     const queryFeatures = useCallback(() => {
         
@@ -80,18 +69,19 @@ const DataAndMap = () => {
             var items = response.data.features;
             
             if (response.data.exceededTransferLimit) {
-                
-                for (let index = 0; index < items.length; index++) {
-                    queryFeaturesArray.push(items[index])
-                }
+
+                setQueryFeaturesArray([
+                    ...queryFeaturesArray,
+                    ...items
+                ]);
 
                 resultOffset.current += items.length;
-                queryFeatures();
 
             } else {
 
+                const featuresArray = [...queryFeaturesArray, ...items];
+                filterFeatures(featuresArray);
                 resultOffset.current = 0;
-                filterFeatures(items)
 
             }
 
@@ -117,7 +107,7 @@ const DataAndMap = () => {
                     </Box>
                     <DisplayData filterOption={filterOption} handleChangeFilter={handleChangeFilter} isLoading={ isLoading } countCrimeByCat={countCrimeByCat} />
                 </Box>
-                <DisplayMap filter={filterOption} onChange={handleChangeFilter}/>
+                <DisplayMap filterOption={filterOption}/>
             </Grid>
         </>
     )
