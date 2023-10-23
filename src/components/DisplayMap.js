@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Container, Grid, Box } from "@mui/material";
-import { featureLayerUrlMajorCrimeIndicators, popupFields } from '../utils/variables';
+import { featureLayerUrl, popupFields } from '../utils/variables';
 import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map.js";
 import Legend from "@arcgis/core/widgets/Legend.js";
@@ -26,12 +26,16 @@ const DisplayMap = () => {
                 zoom: 9
             });
 
-            const featureLayer = new FeatureLayer({
-                url: featureLayerUrlMajorCrimeIndicators,
+            const featureLayerCrimes = new FeatureLayer({
+                url: featureLayerUrl.majorCrimeIndicators,
                 popupTemplate: popupFields
             });
+
+            const featureLayerDivision = new FeatureLayer({
+                url: featureLayerUrl.tpsPoliceDivision
+            })
             
-            map.add(featureLayer);
+            map.addMany([featureLayerCrimes, featureLayerDivision]);
 
             const legend = new Legend({
                 view: view
@@ -45,7 +49,7 @@ const DisplayMap = () => {
 
             view.ui.add(expandLegend, "bottom-right");
         }
-        
+
     }, []);
 
     return (

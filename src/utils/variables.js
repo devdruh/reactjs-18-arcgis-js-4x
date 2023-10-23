@@ -104,8 +104,11 @@ const GridItem = styled(Paper)(({ theme }) => ({
     justifyContent: 'center'
 }));
 
-const featureLayerUrlMajorCrimeIndicators = "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/Major_Crime_Indicators_Open_Data/FeatureServer/0";
+const featureLayerUrl = {
+    'majorCrimeIndicators': "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/Major_Crime_Indicators_Open_Data/FeatureServer/0",
+    'tpsPoliceDivision': "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/TPS_POLICE_DIVISIONS/FeatureServer/0"
+}
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-export {popupFields, getLast5Years, getMonthsName, navPages, featureLayerUrlMajorCrimeIndicators, ColorModeContext, GridItem}
+export {popupFields, getLast5Years, getMonthsName, navPages, featureLayerUrl, ColorModeContext, GridItem}
