@@ -14,7 +14,7 @@ const popupFields = {
                 },
                 {
                     fieldName: "OCC_DATE",
-                    label: "Occured Date"
+                    label: "Occurred Date"
                 },
                 {
                     fieldName: "OFFENCE",

@@ -28,9 +28,15 @@ const DisplayMap = ({ filterOption }) => {
                 zoom: 10
             });
 
+            let params = 'OCC_YEAR = \'' + filterOption.year + '\'';
+            if (filterOption.month) {
+                params += ' AND OCC_MONTH=\'' + filterOption.month + '\''
+            }
+
             const featureLayerCrimes = new FeatureLayer({
                 url: featureLayerUrl.majorCrimeIndicators,
-                popupTemplate: popupFields
+                popupTemplate: popupFields,
+                definitionExpression: params
             });
 
             const featureLayerDivision = new FeatureLayer({
@@ -52,7 +58,7 @@ const DisplayMap = ({ filterOption }) => {
             view.ui.add(expandLegend, "bottom-right");
         }
 
-    }, [mapDiv, theme.palette.mode]);
+    }, [mapDiv, theme.palette.mode, filterOption.month, filterOption.year]);
 
     return (
         <>
